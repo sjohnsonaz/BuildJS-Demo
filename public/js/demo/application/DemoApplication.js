@@ -3,9 +3,9 @@ var timeBody = 0;
 if (typeof performance !== 'undefined' && performance.now) {
 	timeStart = performance.now();
 }
-Build.paths.main = '/Resources/js/';
-Build.paths.build = '/Resources/js/';
-Build.paths.demo = '/DemoResources/js/';
+Build.paths.main = '/BuildJS-Front/js/';
+Build.paths.build = '/BuildJS-Front/js/';
+Build.paths.demo = '/js/';
 
 /**
  * @class demo.application.DemoApplication
