@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Install BuildJS" default="run" basedir="">
+	<property file="${basedir}/launch/ant/stage-override.properties" />
+	<property name="stage" value="dev" />
+	<property file="os" value="unix" />
+	<property file="${basedir}/launch/ant/default-${os}.properties" />
+	<macrodef name="openInBrowser">
+		<attribute name="url" />
+		<sequential>
+			<exec executable="rundll32.exe" dir="${basedir}" osfamily="windows">
+				<arg line="url.dll, FileProtocolHandler" />
+				<arg line="@{url}" />
+			</exec>
+			<exec executable="google-chrome" osfamily="unix">
+				<arg value="@{url}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	<condition property="is_windows">
+		<os family="windows" />
+	</condition>
+	<target name="install" depends="npm, bower, less">
+		<property name="" value="" />
+	</target>
+	<target name="install-production" depends="npm, bower, less, min">
+		<property name="" value="" />
+	</target>
+	<target name="clean">
+		<delete dir="${basedir}/node_modules" />
+		<delete dir="${basedir}/public/Resources/vendor" />
+		<delete dir="${basedir}/public/Resources/css" />
+		<delete dir="${basedir}/public/doc" />
+		<delete dir="${basedir}/public/min" />
+	</target>
+	<target name="run" depends="">
+		<exec executable="node">
+			<arg value="buildjsapp.js" />
+		</exec>
+	</target>
+	<target name="debug" depends="">
+		<exec executable="node-debug" osfamily="unix">
+			<arg value="server.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/node-debug.cmd" osfamily="windows">
+			<arg value="server.js" />
+		</exec>
+	</target>
+	<target name="npm" depends="">
+		<echo>Running npm...</echo>
+		<exec executable="npm" osfamily="unix">
+			<arg value="install" />
+		</exec>
+		<exec executable="C:\Program Files\nodejs\npm.cmd" osfamily="windows">
+			<arg value="install" />
+		</exec>
+	</target>
+	<target name="npm-production" depends="">
+		<echo>Running npm...</echo>
+		<exec executable="npm" osfamily="unix">
+			<arg value="install" />
+			<arg value="--production" />
+		</exec>
+		<exec executable="C:\Program Files\nodejs\npm.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--production" />
+		</exec>
+	</target>
+	<target name="bower" depends="">
+		<echo>Running bower...</echo>
+		<exec executable="bower" osfamily="unix">
+			<arg value="install" />
+			<arg value="--allow-root" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/bower.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--allow-root" />
+		</exec>
+	</target>
+	<target name="bower-production" depends="">
+		<echo>Running bower...</echo>
+		<exec executable="bower" osfamily="unix">
+			<arg value="install" />
+			<arg value="--production" />
+			<arg value="--allow-root" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/bower.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--production" />
+			<arg value="--allow-root" />
+		</exec>
+	</target>
+	<target name="less" depends="">
+		<echo>Running less...</echo>
+		<mkdir dir="${basedir}/public/Resources/css" />
+		<exec executable="lessc" osfamily="unix">
+			<arg value="${basedir}/public/Resources/less/base.less" />
+			<arg value="${basedir}/public/Resources/css/base.css" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/lessc.cmd" osfamily="windows">
+			<arg value="${basedir}/public/Resources/less/base.less" />
+			<arg value="${basedir}/public/Resources/css/base.css" />
+		</exec>
+	</target>
+	<target name="min" depends="">
+		<echo>Running minification...</echo>
+		<mkdir dir="${basedir}/public/min" />
+		<mkdir dir="${basedir}/public/min/css" />
+		<mkdir dir="${basedir}/public/min/js" />
+		<exec executable="node">
+			<arg value="minify.js" />
+		</exec>
+	</target>
+	<target name="forever-start" depends="">
+		<echo>Starting forever...</echo>
+		<exec executable="forever" osfamily="unix">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/forever.cmd" osfamily="windows">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+
+	</target>
+	<target name="forever-stop" depends="">
+		<echo>Stopping forever...</echo>
+		<exec executable="forever" osfamily="unix">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/forever.cmd" osfamily="windows">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+	</target>
+	<target name="forever-restart" depends="">
+		<echo>Restarting forever...</echo>
+		<exec executable="forever" osfamily="unix">
+			<arg value="restart" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/forever.cmd" osfamily="windows">
+			<arg value="restart" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+	</target>
+	<target name="git-pull">
+		<echo>Pulling latest...</echo>
+		<exec executable="git">
+			<arg value="pull" />
+		</exec>
+	</target>
+	<target name="update" depends="forever-stop, git-pull, install, forever-start">
+	</target>
+	<target name="update-production" depends="forever-stop, git-pull, install-production, forever-start">
+	</target>
+	<target name="nginx-start">
+		<echo>Starting Nginx...</echo>
+		<exec executable="nginx" osfamily="unix">
+		</exec>
+		<exec executable="start" osfamily="windows">
+			<arg value="nginx" />
+		</exec>
+	</target>
+	<target name="nginx-stop">
+		<echo>Stopping Nginx...</echo>
+		<exec executable="nginx">
+			<arg value="-s" />
+			<arg value="stop" />
+		</exec>
+	</target>
+	<target name="nginx-reload">
+		<echo>Reloading Nginx...</echo>
+		<exec executable="nginx">
+			<arg value="-s" />
+			<arg value="reload" />
+		</exec>
+	</target>
+	<target name="nginx-install">
+		<echo>Installing to Nginx...</echo>
+		<copy file="${basedir}/launch/nginx/buildjs.nginx.config" tofile="${nginx.path}/sites-available/${server.name}" />
+		<replace file="${nginx.path}/sites-available/${server.name}">
+			<replacefilter token="@{server.name}" value="${server.name}" />
+		</replace>
+	</target>
+	<target name="nginx-enable">
+		<echo>Enabling in Nginx...</echo>
+		<symlink link="${nginx.path}/sites-available/${server.name}" resource="${nginx.path}/sites-enabled/${server.name}" />
+	</target>
+</project>

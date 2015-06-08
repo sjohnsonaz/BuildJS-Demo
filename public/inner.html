@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Inner</title>
+<link rel="stylesheet" href="Resources/css/base.css" />
+<script type="text/javascript" src="Resources/js/build/utility/PostMessage.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		messenger = new build.utility.PostMessage(window, 'test');
+		var outputDiv = document.getElementById('output-div');
+		messenger.addListener(function(data) {
+			var line = document.createElement('div');
+			line.innerHTML = data;
+			outputDiv.appendChild(line);
+		});
+		messenger.listen()
+	};
+</script>
+</head>
+<body>
+	<h1>Inner</h1>
+	<div id="output-div" style="height: 50px; overflow-y: scroll;"></div>
+</body>
+</html>
