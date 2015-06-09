@@ -14,9 +14,9 @@ module.exports = {
 		},
 		backend : {
 			paths : {
-				main : __dirname + '/public/Resources/js/',
-				buildnode : __dirname + '/public/NodeResources/js/',
-				demo : __dirname + '/public/DemoResources/js/'
+				main : __dirname + '/node_modules/BuildJS/js/',
+				buildnode : __dirname + '/node_modules/BuildJS-Back/js/',
+				demo : __dirname + '/node_modules/BuildJS-Demo/js/'
 			}
 		}
 	},

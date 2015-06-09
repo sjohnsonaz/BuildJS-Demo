@@ -1,5 +1,5 @@
 var config = require('./config');
-var Build = require('./public/Resources/js/build/Build');
+var Build = require('BuildJS/js/Build');
 Build.environment.globalOverride();
 Build.paths.main = config.Build.backend.paths.main;
 Build.paths.demo = config.Build.backend.paths.demo;
