@@ -1,16 +1,17 @@
 {
-  "name": "BuildJS",
+  "name": "BuildJS-Demo",
   "version": "0.0.0",
   "description": "Class definition and loading for JavaScript.  Also includes UI and MVC Frameworks.",
-  "main": "public/Resources/js/build/Build.js",
+  "main": "public/js/demo/application/DemoApplication.js",
   "ignore": [
     ".jshintrc",
     "**/*.txt"
   ],
   "dependencies": {
-	"fontawesome": "4.x.x",
-	"normalize-css": "3.x.x"
+    "fontawesome": "4.x.x",
+    "normalize-css": "3.x.x",
+    "BuildJS": "~0.1.0",
+    "BuildJS-Front": "~0.1.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

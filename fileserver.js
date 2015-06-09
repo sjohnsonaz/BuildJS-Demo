@@ -8,8 +8,6 @@ system.config = config;
 app.configure(function() {
 	app.use(express.compress());
 	app.use(config.staticDirectory, express.static(config.staticPath));
-	app.use('/BuildJS', express.static(__dirname + '/../BuildJS'));
-	app.use('/BuildJS-Front', express.static(__dirname + '/../BuildJS-Front'));
 	app.use(express.methodOverride());
 	app.use(app.router);
 });

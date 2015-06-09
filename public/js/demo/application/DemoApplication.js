@@ -3,8 +3,8 @@ var timeBody = 0;
 if (typeof performance !== 'undefined' && performance.now) {
 	timeStart = performance.now();
 }
-Build.paths.main = '/BuildJS-Front/js/';
-Build.paths.build = '/BuildJS-Front/js/';
+Build.paths.main = '/vendor/BuildJS-Front/js/';
+Build.paths.build = '/vendor/BuildJS-Front/js/';
 Build.paths.demo = '/js/';
 
 /**
