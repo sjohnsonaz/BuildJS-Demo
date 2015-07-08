@@ -1,5 +1,5 @@
 module.exports = {
-	port : 9001,
+	port : process.env.PORT || 9001,// process.env.IP,
 	staticPath : __dirname + '/public',
 	staticDirectory : '',
 	viewPath : __dirname + '/views',
