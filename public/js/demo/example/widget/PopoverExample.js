@@ -16,6 +16,7 @@ Build('demo.example.widget.PopoverExample', [ 'build::build.ui.Container', 'buil
 
 			var popover = build.widget.popover.Popover.create();
 			popover.children.push('Popover Content');
+			popover.popoverPosition = 'right';
 
 			button.appendChild(popover.element);
 
