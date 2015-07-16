@@ -10,7 +10,14 @@ Build('demo.example.widget.PopoverExample', [ 'build::build.ui.Container', 'buil
 			var header0 = build.ui.element.Header2.create('Popovers');
 			this.addChild(header0);
 
-			var button = build.widget.popover.Popover.create();
+			var button = document.createElement('button');
+			button.className = 'popover-trigger';
+			button.innerHTML = 'Popover Button';
+
+			var popover = build.widget.popover.Popover.create();
+			popover.children.push('Popover Content');
+
+			button.appendChild(popover.element);
 
 			this.addChild(button);
 		}
