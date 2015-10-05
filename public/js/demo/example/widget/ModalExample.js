@@ -25,9 +25,12 @@ Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build:
 
 			button0.addEventListener('click', toggleModal);
 			button1.addEventListener('click', toggleModal);
+			var modalHeader = document.createElement('div');
+			modalHeader.className = 'modal-header';
 
 			this.addChild(button0);
-			modal.addChild(button1);
+			modalHeader.appendChild(button1.element);
+			modal.addChild(modalHeader);
 			modal.addChild(build.ui.element.Paragraph.create('\
 				<h1>Modal Content</h1>\
 				This is a Modal.  It allows us to create content on top of the main page.  It scrolls independently of the other content.\
