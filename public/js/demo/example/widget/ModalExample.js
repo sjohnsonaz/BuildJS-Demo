@@ -25,6 +25,7 @@ Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build:
 
 			button0.addEventListener('click', toggleModal);
 			button1.addEventListener('click', toggleModal);
+			button1.classList.add('modal-control');
 			var modalHeader = document.createElement('div');
 			modalHeader.className = 'modal-header';
 
