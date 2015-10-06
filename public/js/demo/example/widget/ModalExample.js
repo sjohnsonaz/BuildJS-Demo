@@ -2,7 +2,7 @@
  * @class demo.example.widget.ModalExample
  * @extends build.ui.Container
  */
-Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.modal.Modal', 'build::build.ui.Text', 'build::build.form.input.Button' ], function(
+Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.modal.Modal','build::build.widget.modal.ModalHeader', 'build::build.ui.Text', 'build::build.form.input.Button' ], function(
 		$define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
@@ -15,6 +15,8 @@ Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build:
 			this.addChild(header0);
 
 			var modal = build.widget.modal.Modal.create();
+			var modalHeader = build.widget.modal.ModalHeader.create();
+			modalHeader.title = 'Modal';
 
 			var button0 = build.form.input.Button.create('Open Modal');
 			var button1 = build.form.input.Button.create('Close Modal');
@@ -25,12 +27,9 @@ Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build:
 
 			button0.addEventListener('click', toggleModal);
 			button1.addEventListener('click', toggleModal);
-			button1.classList.add('modal-control');
-			var modalHeader = document.createElement('div');
-			modalHeader.className = 'modal-header';
 
 			this.addChild(button0);
-			modalHeader.appendChild(button1.element);
+			modalHeader.addChild(button1);
 			modal.addChild(modalHeader);
 			modal.addChild(build.ui.element.Paragraph.create('\
 				<h1>Modal Content</h1>\
