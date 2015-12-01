@@ -8,10 +8,9 @@ gulp.task('clean', function() {
         .pipe(clean({
             force: true
         }))
-})
+});
 
 gulp.task('less-watch', ['clean'], function() {
-    // place code for your default task here
     return gulp.src('public/less/demo.less')
         .pipe(watchLess('public/less/demo.less'))
         .pipe(less())
@@ -19,10 +18,11 @@ gulp.task('less-watch', ['clean'], function() {
 });
 
 gulp.task('less', ['clean'], function() {
-    // place code for your default task here
     return gulp.src('public/less/demo.less')
         .pipe(less())
         .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('default', ['clean', 'less']);
+gulp.task('default', ['less']);
+
+gulp.task('watch', ['less-watch'])
