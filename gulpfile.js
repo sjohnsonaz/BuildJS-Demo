@@ -10,16 +10,14 @@ gulp.task('clean', function() {
         }))
 });
 
-gulp.task('less-watch', function() {
+gulp.task('less-watch', ['less'], function() {
     return gulp.src('public/less/demo.less')
         .pipe(watchLess('public/less/demo.less', function() {
             gulp.start('less');
-        }))
-        .pipe(less())
-        .pipe(gulp.dest('public/css'));
+        }));
 });
 
-gulp.task('less', ['clean'], function() {
+gulp.task('less', function() {
     return gulp.src('public/less/demo.less')
         .pipe(less())
         .pipe(gulp.dest('public/css'));
